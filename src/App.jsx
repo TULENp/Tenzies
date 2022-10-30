@@ -22,17 +22,21 @@ export function App() {
 		});
 	}
 
-	// randomize dice numbers
+	// randomize dice numbers whoose isHeld prop is false
 	function roll() {
-		setDice(getRandomDice());
+		setDice(prev => prev.map((die) => {
+			return die.isHeld
+				? die
+				: { ...die, num: Math.ceil(Math.random() * 6) }
+		}))
 	}
 
 	// flip isHeld prop of Die component
 	function holdDice(id) {
 		setDice(prev => prev.map((die) => {
-			return die.id === id ?
-				{ ...die, isHeld: !die.isHeld } :
-				die
+			return die.id === id
+				? { ...die, isHeld: !die.isHeld }
+				: die
 		}))
 	}
 
