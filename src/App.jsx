@@ -11,7 +11,7 @@ export function App() {
 			return {
 				id: nanoid(),
 				num: Math.ceil(Math.random() * 6),
-				isHeld: false
+				isHeld: true
 			}
 		});
 		return randomArray.map(die => <Die id={die.id} num={die.num} isHeld={die.isHeld} />)
