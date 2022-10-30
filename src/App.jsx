@@ -80,6 +80,7 @@ export function App() {
 					<button className='rollButton' onClick={roll}>{isWon ? "New Game" : "Roll"}</button>
 				</div>
 			</section>
+		<p>© Created by <a href="https://github.com/TULENz" target="_blank">Eugene Kononenko</a></p>
 		</main>
 	)
 }
