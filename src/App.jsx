@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Confetti from 'react-confetti' // for congrats confetti
 import './App.css'
 import Die from './components/Die'
 import { nanoid } from 'nanoid';
@@ -33,13 +34,18 @@ export function App() {
 		});
 	}
 
-	// randomize dice numbers whose isHeld prop is false
+	// randomize dice numbers whose isHeld prop is false 
 	function roll() {
-		setDice(prev => prev.map((die) => {
-			return die.isHeld
-				? die
-				: { ...die, num: Math.ceil(Math.random() * 6) }
-		}))
+		if (!isWon) {
+			setDice(prev => prev.map((die) => {
+				return die.isHeld
+					? die
+					: { ...die, num: Math.ceil(Math.random() * 6) }
+			}))
+		} else { // if isWon is true reset game
+			setIsWon(false);
+			setDice(getRandomDice());
+		}
 	}
 
 	// flip isHeld prop of Die component
@@ -54,15 +60,21 @@ export function App() {
 	return (
 		<main className="App">
 			<section>
+				{isWon && <Confetti />}
 				<div className="block">
 					<div className="info">
-						<h1>Tenzies</h1>
-						<h2>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h2>
+						{isWon
+							? <h1>You Won!</h1>
+							: <>
+								<h1>Tenzies</h1>
+								<h2>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h2>
+							</>
+						}
 					</div>
 					<div className='dice'>
 						{diceArray}
 					</div>
-					<button className='rollButton' onClick={roll}>Roll</button>
+					<button className='rollButton' onClick={roll}>{isWon ? "New Game" : "Roll"}</button>
 				</div>
 			</section>
 		</main>
