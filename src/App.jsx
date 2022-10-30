@@ -11,6 +11,10 @@ export function App() {
 		return randomArray.map(die => <Die num={die} />)
 	}
 
+	function Roll(){
+		setDice(GetRandomDice());
+	}
+
 	return (
 		<main className="App">
 			<section>
@@ -22,7 +26,7 @@ export function App() {
 					<div className='dice'>
 						{dice}
 					</div>
-					<button className='rollButton'>Roll</button>
+					<button className='rollButton' onClick={Roll}>Roll</button>
 				</div>
 			</section>
 		</main>
