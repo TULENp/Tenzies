@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import './App.css'
 import Die from './components/Die'
+import {nanoid} from 'nanoid';
 
 export function App() {
 
 	const [dice, setDice] = useState(GetRandomDice());
-
 	function GetRandomDice() {
-		let randomArray = Array.from({ length: 10 }, () => Math.ceil(Math.random() * 6));
-		return randomArray.map(die => <Die num={die} />)
+		let randomArray = Array.from({ length: 10 }, () => {
+			return {
+				id: nanoid(),
+				num: Math.ceil(Math.random() * 6),
+				isHeld: false
+			}
+		});
+		return randomArray.map(die => <Die id={die.id} num={die.num} isHeld={die.isHeld} />)
 	}
 
-	function Roll(){
+	function Roll() {
 		setDice(GetRandomDice());
 	}
 
