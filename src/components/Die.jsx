@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Die = (props) => {
-
-    //const [num, usHeld] = props;
+const Die = ({num, isHeld, hold}) => {
     return (
-        <div className={props.isHeld?"die held":"die"}>
-            <h1>{props.num}</h1>
+        <div className={isHeld?"die held":"die"} onClick={hold}>
+            <h1>{num}</h1>
         </div>
     );
 }

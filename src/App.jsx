@@ -1,24 +1,34 @@
 import React, { useState } from 'react'
 import './App.css'
 import Die from './components/Die'
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 
 export function App() {
 
-	const [dice, setDice] = useState(GetRandomDice());
-	function GetRandomDice() {
-		let randomArray = Array.from({ length: 10 }, () => {
+	const [dice, setDice] = useState(getRandomDice());
+
+	const diceArray = dice.map(die =>
+		<Die key={die.id} num={die.num} isHeld={die.isHeld} hold={() => holdDice(die.id)} />)
+
+	function getRandomDice() {
+		return Array.from({ length: 10 }, () => {
 			return {
 				id: nanoid(),
 				num: Math.ceil(Math.random() * 6),
-				isHeld: true
+				isHeld: false
 			}
 		});
-		return randomArray.map(die => <Die id={die.id} num={die.num} isHeld={die.isHeld} />)
 	}
 
-	function Roll() {
-		setDice(GetRandomDice());
+	function roll() {
+		setDice(getRandomDice());
+	}
+	function holdDice(id) {
+		setDice(prev => prev.map((die) => {
+			return die.id === id ?
+				{ ...die, isHeld: !die.isHeld } :
+				die
+		}))
 	}
 
 	return (
@@ -30,9 +40,9 @@ export function App() {
 						<h2>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h2>
 					</div>
 					<div className='dice'>
-						{dice}
+						{diceArray}
 					</div>
-					<button className='rollButton' onClick={Roll}>Roll</button>
+					<button className='rollButton' onClick={roll}>Roll</button>
 				</div>
 			</section>
 		</main>

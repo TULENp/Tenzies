@@ -101,6 +101,12 @@ button:focus-visible {
   background: #59E391;
 }
 
+.die:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+
+}
+
 .dice {
   display: flex;
   flex-flow: row wrap;
