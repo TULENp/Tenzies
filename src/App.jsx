@@ -4,11 +4,13 @@ import Die from './components/Die'
 
 export function App() {
 
-	const [dice, setDice] = useState(GetRandomArray().map(die => <Die num={die} />));
+	const [dice, setDice] = useState(GetRandomDice());
 
-	function GetRandomArray() {
-		return Array.from({ length: 10 }, () => Math.ceil(Math.random() * 6));
+	function GetRandomDice() {
+		let randomArray = Array.from({ length: 10 }, () => Math.ceil(Math.random() * 6));
+		return randomArray.map(die => <Die num={die} />)
 	}
+
 	return (
 		<main className="App">
 			<section>
