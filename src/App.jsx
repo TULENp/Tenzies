@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import Die from './components/Die'
 import { nanoid } from 'nanoid';
@@ -6,10 +6,21 @@ import { nanoid } from 'nanoid';
 export function App() {
 
 	const [dice, setDice] = useState(getRandomDice());
+	const [isWon, setIsWon] = useState(false);
 
-	// array of <Die> components
+	// array of <Die> components 
 	const diceArray = dice.map(die =>
 		<Die key={die.id} num={die.num} isHeld={die.isHeld} hold={() => holdDice(die.id)} />)
+
+	// check all dice isHeld and all have the same num. If true - player won
+	useEffect(() => {
+		const allHeld = dice.every(die => die.isHeld)
+		const allSameNum = dice.every(die => die.num === dice[0].num)
+		if (allHeld && allSameNum) {
+			setIsWon(true);
+			console.log("you Won");
+		}
+	}, [dice]);
 
 	// return array of objects(dice) with random id and number
 	function getRandomDice() {
@@ -22,7 +33,7 @@ export function App() {
 		});
 	}
 
-	// randomize dice numbers whoose isHeld prop is false
+	// randomize dice numbers whose isHeld prop is false
 	function roll() {
 		setDice(prev => prev.map((die) => {
 			return die.isHeld
