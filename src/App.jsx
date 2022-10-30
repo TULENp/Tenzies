@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Confetti from 'react-confetti' // for congrats confetti
 import './App.css'
 import Die from './components/Die'
-import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid'; // to generate random ids
 
 export function App() {
 
@@ -17,9 +17,9 @@ export function App() {
 	useEffect(() => {
 		const allHeld = dice.every(die => die.isHeld)
 		const allSameNum = dice.every(die => die.num === dice[0].num)
+
 		if (allHeld && allSameNum) {
 			setIsWon(true);
-			console.log("you Won");
 		}
 	}, [dice]);
 
@@ -67,7 +67,8 @@ export function App() {
 							? <h1>You Won!</h1>
 							: <>
 								<h1>Tenzies</h1>
-								<h2>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</h2>
+								<h2>Roll until all dice are the same.</h2>
+								<h2>Click each die to freeze it at its current value between rolls.</h2>
 							</>
 						}
 					</div>
