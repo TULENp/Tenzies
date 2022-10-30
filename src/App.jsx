@@ -5,6 +5,8 @@ import Die from './components/Die'
 import { nanoid } from 'nanoid'; // to generate random ids
 
 //todo Add animation when Roll dice
+//todo add rolls counter and timer
+//todo save best time to localStorage
 export function App() {
 
 	const [dice, setDice] = useState(getRandomDice());
