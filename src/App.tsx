@@ -5,20 +5,28 @@ import Die from './components/Die'
 import { nanoid } from 'nanoid'; // to generate random ids
 
 //todo Add animation when Roll dice
-//todo add rolls counter and timer
-//todo save best time to localStorage
+//todo Add rolls counter and timer
+//todo Save best time to localStorage
+
+//todo change color of the "Roll" button or add !important
 export function App() {
 
-	const [dice, setDice] = useState(getRandomDice());
-	const [isWon, setIsWon] = useState(false);
+	type TDice = {
+		id: string,
+		num: number,
+		isHeld: boolean
+	}
+
+	const [dice, setDice] = useState<TDice[]>(getRandomDice());
+	const [isWon, setIsWon] = useState<boolean>(false);
 	// array of <Die> components 
-	const diceArray = dice.map(die =>
+	const diceArray: JSX.Element[] = dice.map(die =>
 		<Die key={die.id} num={die.num} isHeld={die.isHeld} hold={() => holdDice(die.id)} />)
 
 	// check all dice isHeld and all have the same num. If true - player won
 	useEffect(() => {
-		const allHeld = dice.every(die => die.isHeld)
-		const allSameNum = dice.every(die => die.num === dice[0].num)
+		const allHeld: boolean = dice.every(die => die.isHeld)
+		const allSameNum: boolean = dice.every(die => die.num === dice[0].num)
 
 		if (allHeld && allSameNum) {
 			setIsWon(true);
@@ -26,7 +34,7 @@ export function App() {
 	}, [dice]);
 
 	// return array of objects(dice) with random id and number
-	function getRandomDice() {
+	function getRandomDice():TDice[] {
 		return Array.from({ length: 10 }, () => {
 			return {
 				id: nanoid(),
@@ -51,7 +59,7 @@ export function App() {
 	}
 
 	// flip isHeld prop of Die component
-	function holdDice(id) {
+	function holdDice(id:string) {
 		setDice(prev => prev.map((die) => {
 			return die.id === id
 				? { ...die, isHeld: !die.isHeld }
@@ -74,13 +82,13 @@ export function App() {
 							</>
 						}
 					</div>
-					<div className={'dice'}>
+					<div className='dice'>
 						{diceArray}
 					</div>
 					<button className='rollButton' onClick={roll}>{isWon ? "New Game" : "Roll"}</button>
 				</div>
 			</section>
-		<p>© Created by <a href="https://github.com/TULENz" target="_blank">Eugene Kononenko</a></p>
+			<p>© Created by <a href="https://github.com/TULENz" target="_blank">Eugene Kononenko</a></p>
 		</main>
 	)
 }
