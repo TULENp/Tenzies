@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid'; // to generate random ids
 //todo Save best time to localStorage
 
 //todo change color of the "Roll" button or add !important
-export function App() {
+export function App(): JSX.Element {
 
 	type TDice = {
 		id: string,
