@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Confetti from 'react-confetti' // for congrats confetti
 import './App.css'
 import Die from './components/Die'
 import { nanoid } from 'nanoid'; // to generate random ids
 
-//todo Add animation when Roll dice
 //todo Add rolls counter and timer
 //todo Save best time to localStorage
 
-//todo change color of the "Roll" button or add !important
 export function App(): JSX.Element {
 
 	type TDice = {
@@ -19,6 +17,8 @@ export function App(): JSX.Element {
 
 	const [dice, setDice] = useState<TDice[]>(getRandomDice());
 	const [isWon, setIsWon] = useState<boolean>(false);
+	const shake = useRef<HTMLDivElement>(HTMLDivElement.prototype);
+
 	// array of <Die> components 
 	const diceArray: JSX.Element[] = dice.map(die =>
 		<Die key={die.id} num={die.num} isHeld={die.isHeld} hold={() => holdDice(die.id)} />)
@@ -34,7 +34,7 @@ export function App(): JSX.Element {
 	}, [dice]);
 
 	// return array of objects(dice) with random id and number
-	function getRandomDice():TDice[] {
+	function getRandomDice(): TDice[] {
 		return Array.from({ length: 10 }, () => {
 			return {
 				id: nanoid(),
@@ -56,10 +56,15 @@ export function App(): JSX.Element {
 			setIsWon(false);
 			setDice(getRandomDice());
 		}
+		
+		shake.current.className = 'dice shake';
+		setTimeout(() => {
+			shake.current.className = 'dice';
+		}, 200);
 	}
 
 	// flip isHeld prop of Die component
-	function holdDice(id:string) {
+	function holdDice(id: string) {
 		setDice(prev => prev.map((die) => {
 			return die.id === id
 				? { ...die, isHeld: !die.isHeld }
@@ -82,7 +87,7 @@ export function App(): JSX.Element {
 							</>
 						}
 					</div>
-					<div className='dice'>
+					<div className='dice' ref={shake}>
 						{diceArray}
 					</div>
 					<button className='rollButton' onClick={roll}>{isWon ? "New Game" : "Roll"}</button>
