@@ -19,7 +19,7 @@ export function App(): JSX.Element {
 	const [isWon, setIsWon] = useState<boolean>(false);
 	const shake = useRef<HTMLDivElement>(HTMLDivElement.prototype);
 
-	// array of <Die> components 
+	// array of <Die/> components 
 	const diceArray: JSX.Element[] = dice.map(die =>
 		<Die key={die.id} num={die.num} isHeld={die.isHeld} hold={() => holdDice(die.id)} />)
 
