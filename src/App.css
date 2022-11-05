@@ -10,30 +10,6 @@ body {
   background-color: #f5f5f5;
 }
 
-.App {
-  width: 40rem;
-  height: 40rem;
-
-  background: #0B2434;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column nowrap;
-}
-
-p {
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1rem;
-  margin: 0.2rem 1rem;
-  line-height: 1;
-  letter-spacing: -0.03em;
-
-  color: #c4c4c4;
-  margin: 1rem 0 0 0;
-}
-
 a {
   font-weight: 400;
   font-size: 1.2rem;
@@ -49,26 +25,14 @@ a:hover {
   transition: background 0.3s;
 }
 
-section {
-  width: 90%;
-  height: 85%;
-
-  background: #F5F5F5;
-  border-radius: 5%;
-
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  padding: 1.5rem;
-}
-
 h1 {
   font-style: normal;
   font-weight: 700;
   font-size: 4rem;
   letter-spacing: -0.03em;
-
+  line-height: 3.5rem;
   color: #2B283A;
+  margin: 0rem;
 }
 
 h2 {
@@ -83,19 +47,45 @@ h2 {
   color: #4A4E74;
 }
 
+.App {
+  display: flex;
+}
+
+section {
+  width: 40rem;
+  height: 41rem;
+
+  background: #0B2434;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-flow: column wrap;
+}
+
+.block {
+  width: 90%;
+  height: 85%;
+
+  background: #F5F5F5;
+  border-radius: 5%;
+
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
 .info a {
   color: #4A4E74;
-
 }
 
 .tools {
   display: flex;
   flex-flow: row wrap;
-  flex: 1 1 10%;
   justify-content: space-between;
 }
 
-.tools h2{
+.tools h2 {
   margin: 0.5rem;
 }
 
@@ -129,7 +119,7 @@ button:active {
   transition: box-shadow 0.2s;
 }
 
-.difficulty{
+.difficulty {
   cursor: pointer;
 }
 

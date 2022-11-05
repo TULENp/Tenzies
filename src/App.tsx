@@ -3,6 +3,7 @@ import Confetti from 'react-confetti' // for congrats confetti
 import './App.css'
 import Die from './components/Die'
 import { nanoid } from 'nanoid'; // to generate random ids
+import Score from './components/Score';
 
 
 //todo maybe add timer
@@ -108,8 +109,8 @@ export function App(): JSX.Element {
 
 	return (
 		<main className="App">
+			{isWon && <Confetti />}
 			<section>
-				{isWon && <Confetti />}
 				<div className="block">
 					<div className="info">
 						{isWon
@@ -139,8 +140,9 @@ export function App(): JSX.Element {
 						</div>
 					</div>
 				</div>
+				<h2>© Created by <a href="https://github.com/TULENz" target="_blank">Eugene Kononenko</a></h2>
 			</section>
-			<p>© Created by <a href="https://github.com/TULENz" target="_blank">Eugene Kononenko</a></p>
+			<Score />
 		</main>
 	)
 }
