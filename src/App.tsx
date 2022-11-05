@@ -95,7 +95,6 @@ export function App(): JSX.Element {
 			}
 			setDice(getRandomDice(difficulty));
 		}
-
 	}
 
 	// flip isHeld prop of Die component
