@@ -6,9 +6,9 @@ import { nanoid } from 'nanoid'; // to generate random ids
 import Score from './components/Score';
 
 
-//todo maybe add timer
-//todo Save best time to localStorage
-//todo add difficulty mods (5, 10, 15 dice eg / ?timer or limited rolls?)
+// todo Save best time to localStorage
+// todo add online rating
+// todo maybe add timer
 
 export function App(): JSX.Element {
 
@@ -21,7 +21,7 @@ export function App(): JSX.Element {
 	const diffs = { normal: 10, hard: 15, insane: 5 };
 
 	const [isWon, setIsWon] = useState<boolean>(false);
-	const [counter, setCounter] = useState<number>(0)
+	const [count, setCount] = useState<number>(0)
 	const [winText, setWinText] = useState<string>("")
 	const [diffName, setDiffName] = useState<string>(diffNames.normal)
 
@@ -41,7 +41,13 @@ export function App(): JSX.Element {
 
 		if (allHeld && allSameNum) {
 			setIsWon(true);
-			setWinText((counter > 0) ? "You Won!" : "Lucky one!")
+			setWinText((count > 0) ? "You Won!" : "Lucky one!")
+
+			/* const score = localStorage.getItem("score");
+			console.log(score);
+			const firstScore = JSON.stringify({ diffName, count });
+			localStorage.setItem("score", score || firstScore); */
+
 		}
 	}, [dice]);
 
@@ -67,9 +73,10 @@ export function App(): JSX.Element {
 		} else { // if isWon is true reset game
 			setIsWon(false);
 			setDice(getRandomDice(difficulty));
-			setCounter(-1);
+			setCount(-1);
+			setDiffName(diffNames.normal);
 		}
-		setCounter(prev => prev + 1);
+		setCount(prev => prev + 1);
 
 		shake.current.className = 'dice shake';
 		setTimeout(() => {
@@ -131,7 +138,7 @@ export function App(): JSX.Element {
 					<div className='tools'>
 						<div className='counter'>
 							<h2><b>Roll counter:</b></h2>
-							<h2>{counter}</h2>
+							<h2>{count}</h2>
 						</div>
 						<button className='rollButton' onClick={roll}>{isWon ? "New Game" : "Roll"}</button>
 						<div className='difficulty' onClick={changeDifficulty}>
@@ -142,7 +149,7 @@ export function App(): JSX.Element {
 				</div>
 				<h2>© Created by <a href="https://github.com/TULENz" target="_blank">Eugene Kononenko</a></h2>
 			</section>
-			<Score />
+			{/* <Score /> */}
 		</main>
 	)
 }
